@@ -1,0 +1,6 @@
+#ifndef XLIB_X_LIB_FUNCTIONALITY_H
+#define XLIB_X_LIB_FUNCTIONALITY_H
+
+void xFunctionality();
+
+#endif // !XLIB_X_LIB_FUNCTIONALITY_H
