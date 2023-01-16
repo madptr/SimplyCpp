@@ -1,25 +1,37 @@
 # Creating a library
-
-Asuming there is a working application *xProject* and a library of common functionalities should be created, just to share code efficiently. This is quite a common requirement.
+Assuming there is a working application *xProject* and a library of common functionalities can be created.
+We as programmers want to share code efficiently. The DRY principle is quite common.
 
 ## Creating 
 1. Create a new project *xLibrary*.
-2. In project property (right click project name in *Solution Explorer* and select *Properties*).
+2. In project property (right-click on the project name in *Solution Explorer* and select *Properties*).
 3. In *Configuration Properties > General*, *Configuration Type* should be changed to *Static library (.lib)*.
 
-## #include<header.h>
-The location of *xLibrary*'s header files should be set in *xProject* so that the headers can be included. This is done by pasting the path in *Configuration Properties > C/C++ > General > Additional Include Directories*. A actualy path may look like *"C:/xyz/xLibrary"* whereas in the example, the value of *Additional Include Directories* for *01staticLibrary* is *$(SolutionDir)xLibrary;%(AdditionalIncludeDirectories)* which doesn't look like a path at all. Good for us, these are macros defined by the visual studio IDE for each solution and porject created. This helps in configuring projects based on relative path rather by absolute path. The trouble in using absolute path is, it has to be reconfigured every time the project is moved to a different location or when it is set up in a different development machine. Now how do we know the actual path? It can be viewed by clicking on the small dropdown symbol at the right end of the field and selecting *<Edit...>*. Once the location is set, the functions declared in the header files of *xLibrary* will be accessible from *xProject*.
+## #include<XHeader.h>
+The location of *xLibrary*'s header files should be set in *xProject* so that the headers can be included. This is done by pasting the path in *Configuration Properties > C/C++ > General > Additional Include Directories*. An actual path may look like *"C:/xyz/xLibrary"* whereas, in this example, the value of *Additional Include Directories* for *01staticLibrary* is *$(SolutionDir)xLibrary;%(AdditionalIncludeDirectories)* which doesn't look like a path at all.
+
+It is good for us, these are macros defined by the Visual Studio IDE for each solution and project created. This helps in configuring projects based on the relative path rather than the absolute path. The trouble with using the absolute path is, it has to be reconfigured every time the project is moved to a different location and whenever it is set up in a different development machine.
+
+Now, how do we know the actual path? It can be viewed by clicking the small dropdown symbol at the right end of the field and selecting *<Edit...>*. Once the location is set, the functions declared in the header files of *xLibrary* will be accessible from *xProject*.
 
 ## Compiling
-If the include locations are configured properly, any functions in the library can be called from the other project. In this example, the function *xFunctionality* defined in *xlibFunctionality.h* is called from *main.cpp*. Though the header *xlibFunctionality.h* is not included directly in *main.cpp* this is possible because *main.cpp* includes *XHeader.h* which includes *xlibFunctionality.h*. Thus *main.cpp* indirectly includes *xlibFunctionality.h*. In this stage, the application will compile fine, but there will a lot of linker errors. The reason? the application can access the declaration of all the functions (in the header files), thus the compiler assumes that the function is defined (the body of the function) somewhere and continues with compilation, eventually succeeds in compiling. After compilation, the compiler tries to link the actual function definitions and it fails because we have not informed the compiler where the function body is. Yes, *xlibFunctionality.cpp* is sitting right there, but it is a part of different *xLibrary* project and not of *01staticLibrary* project.
+If the 'include' locations are configured properly, any function in the library can be called from the other project. In this example, the function *xFunctionality* defined in *xlibFunctionality.h* is called from *main.cpp*. Though the header *xlibFunctionality.h* is not included directly in *main.cpp*. This is possible because *main.cpp* includes *XHeader.h* which includes *xlibFunctionality.h*. In other words, *main.cpp* indirectly includes *xlibFunctionality.h*. In this stage, the application will compile fine, but there will be a lot of linker errors. 
+
+## Linker errors
+What are these scary error messages? What do they mean?
+
+The application can access the declaration of all the functions via the included header files, thus the compiler assumes that the function is defined (the body of the function) somewhere else and continues with compilation, eventually succeeding in compiling. After compilation, the compiler tries to link the actual function definitions, and it fails with linker errors. 
+
+The compiler is right, we have not informed the compiler where the function's body is. Though *xlibFunctionality.cpp* is sitting right there, it is part of a different _xLibrary_ project and not of *01staticLibrary* project.
 
 ## Where are the function definitions? 
-The function definitions (body) is in the *.lib* file that is generated by the *xLibrary*. It can be found in *Output Directory* of the *xLibrary* project. The actual location can be changed in project properties by going to *Configuration Properties > General > Output Directory*. The *.lib* file generated after a successful compilation can be found in that location. Even thought the location of *.lib* file tracked, the actual *xProject* do not know this location.
+The function definitions (body of the declared functions) are in the *.lib* file that is generated by the *xLibrary*. It can be found in *Output Directory* of the *xLibrary* project. The actual location can be changed in project properties by going to *Configuration Properties > General > Output Directory*. The *.lib* file generated after a successful compilation can be found in that location. 
 
 ## Linking
-The first step of linking is letting the other projects know the location of the library files. It can be set up in the project properties. The location / path is set in *Configuration Properties > Linker > General > Additional Library Directories* of the 'application' project and the name of the *lib* file should be set in *Configuration Properties > Linker > Input > Additional Dependencies*.
+The first step of linking is letting the other projects, or the projects using the library *xLibrary*, know the location of the library files. It can be set up in the project properties. Similar to the header location, the location/path is set in *Configuration Properties > Linker > General > Additional Library Directories* of the 'application' project and the name of the lib, *xLIbrary.lib* in this case, should be set in *Configuration Properties > Linker > Input > Additional Dependencies*.
 
 ## Execution
-Once the header location and library info are set properly in project settings, the project can be compiled and linked successfully.
+Once the header location and library info are set properly using the project settings, the project can be compiled, linked and executed successfully.
 
-In this example the function *xFunctionality()* defined in *xLibrary* project will be called from *01staticLibrary* project. To execute *01staticLibrary* project should be set as startup project. This is done by right clicking on the porject name and selecting *Set as startup project*
+## 01staticLibrary
+In this example, the function *xFunctionality()* defined in *xLibrary* project will be called from *01staticLibrary* project. To execute *01staticLibrary* project should be set as a startup project. This is done by right-clicking on the project name and selecting *Set as startup project*.
