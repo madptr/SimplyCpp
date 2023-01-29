@@ -5,6 +5,6 @@ Though the concepts are general, the focus and description will be largely based
 
 ## Creating library
 
-A simple example that shows how a library is created and can be accessed from a different project. 
+A simple example that shows to create a library and access its functionalities from a different project/application. 
 
 To create a [Static library](creatingLibrary/01staticLibrary/)
