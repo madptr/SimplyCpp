@@ -5,6 +5,12 @@ Though the concepts are general, the focus and description will be largely based
 
 ## Creating library
 
-A simple example that shows to create a library and access its functionalities from a different project/application. 
+Creating a library and accessing its functionalities from a different project/application. 
 
-To create a [Static library](creatingLibrary/01staticLibrary/)
+To create a [Static library](creatingLibrary/01staticLibrary/).
+
+## function pointers
+
+Different patterns to use a function pointer.
+
+A basic [use-case](functionPointers/01functionPointers).
