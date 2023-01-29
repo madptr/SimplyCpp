@@ -7,4 +7,4 @@ Though the concepts are general, the focus and description will be largely based
 
 A simple example that shows how a library is created and can be accessed from a different project. 
 
-### [Static library](creatingLibrary/01staticLibrary/)
+To create a [Static library](creatingLibrary/01staticLibrary/)
