@@ -1,5 +1,5 @@
 # SimplyCpp
-A repository of useful code snippets for c++ beginers. There are README files explaining each example and comments inside the code wherever necessary.
+A repository of useful code snippets for C++ beginners. There are README files explaining each example and comments inside the code if necessary.
 
 Though the concepts are general, the focus and description will be largely based on game/graphics programming.
 
@@ -9,8 +9,10 @@ Creating a library and accessing its functionalities from a different project/ap
 
 To create a [Static library](creatingLibrary/01staticLibrary/).
 
-## function pointers
+## Function pointers
 
-Different patterns to use a function pointer.
+Different methods to use a function pointer.
 
-A basic [use-case](functionPointers/01functionPointers).
+A basic [use case](functionPointers/01functionPointers).
+
+A library of [function pointers](functionPointers/02libFunctionPointers).
